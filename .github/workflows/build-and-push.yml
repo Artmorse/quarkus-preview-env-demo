@@ -4,7 +4,6 @@ name: Build and Push Quarkus Docker Image
 
 on:
   pull_request:
-  push:
 
 jobs:
   build-and-push:
@@ -26,7 +25,7 @@ jobs:
         run: echo "app_name=`echo $GITHUB_REPOSITORY | awk -F/ '{print $NF}'`" >> $GITHUB_ENV
 
       - name: Build Quarkus Docker Image
-        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.name=${{ github.event.repository.name }} -Dquarkus.container-image.tag=${{ github.sha }}
+        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.name=${{ env.app_name }} -Dquarkus.container-image.tag=${{ github.sha }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -36,7 +35,7 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker tag ${{ github.event.repository.name }}:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name	}}:${{ github.sha }}
+          docker tag ${{ env.app_name }}:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name	}}:${{ github.sha }}
 
       - name: Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name }}:${{ github.sha }}
