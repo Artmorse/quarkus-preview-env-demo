@@ -25,7 +25,7 @@ jobs:
         run: echo "app_name=`echo $GITHUB_REPOSITORY | awk -F/ '{print $NF}'`" >> $GITHUB_ENV
 
       - name: Build Quarkus Docker Image
-        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.name=${{ env.app_name }} -Dquarkus.container-image.tag=${{ github.sha }}
+        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.image=${{ env.app_name }}:${{ github.sha }}
 
       - name: Check Docker images
         run: docker images
