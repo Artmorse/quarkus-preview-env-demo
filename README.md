@@ -47,6 +47,11 @@ Clean the environment by running:
 k delete ns dummy-api
 ```
 
+## How to setup preview environments
+
+I've created the [_preview_ directory](/preview) with Helm templates based on the kubernetes ones.
+They'll be used by our ArgoCD application to create preview environments.
+
 ## Configure CI
 
 You need to create 2 secrets in your repository:
