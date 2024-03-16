@@ -17,9 +17,9 @@ spec:
           image: {{ .Values.username }}/{{ .Values.image }}:{{ .Values.version }}
           imagePullPolicy: Always
           ports:
-              - containerPort: 8080
-                name: http
-                protocol: TCP
-              - containerPort: 8443
-                name: https
-                protocol: TCP
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8443
+              name: https
+              protocol: TCP
