@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.username }}/{{ .Values.image }}:{{ .Values.version }}
+          imagePullPolicy: Always
+          ports:
+              - containerPort: 8080
+                name: http
+                protocol: TCP
+              - containerPort: 8443
+                name: https
+                protocol: TCP

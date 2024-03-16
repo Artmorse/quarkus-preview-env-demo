@@ -10,3 +10,9 @@ mvn io.quarkus.platform:quarkus-maven-plugin:3.6.7:create \
 
 mvn quarkus:add-extension -Dextensions='container-image-docker'
 ```
+
+https://quarkus.io/guides/deploying-to-kubernetes
+
+```bash
+mvn quarkus:add-extension -Dextensions='quarkus-kubernetes'
+```

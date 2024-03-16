@@ -42,3 +42,9 @@ jobs:
 
       - name: Push Docker Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name }}:${{ github.sha }}
+
+      - name: Archive Kubernetes manifests
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubernetes.yml
+          path: target/kubernetes/kubernetes.yml
