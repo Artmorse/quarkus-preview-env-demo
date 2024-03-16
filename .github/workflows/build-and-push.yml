@@ -25,7 +25,7 @@ jobs:
         run: echo "app_name=`echo $GITHUB_REPOSITORY | awk -F/ '{print $NF}'`" >> $GITHUB_ENV
 
       - name: Build Quarkus Docker Image
-        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.group="" -Dquarkus.container-image.name=${{ env.app_name }} -Dquarkus.container-image.tag=${{ github.sha }}
+        run: mvn install -Dquarkus.container-image.build=true -Dquarkus.container-image.group="" -Dquarkus.container-image.name=${{ env.app_name }} -Dquarkus.container-image.tag=${{ github.event.pull_request.head.sha }}
 
       - name: Check Docker images
         run: docker images
@@ -38,10 +38,10 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker tag ${{ env.app_name }}:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name	}}:${{ github.sha }}
+          docker tag ${{ env.app_name }}:${{ github.event.pull_request.head.sha }} ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name }}:${{ github.event.pull_request.head.sha }}
 
       - name: Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name }}:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.app_name }}:${{ github.event.pull_request.head.sha }}
 
 #      - name: Archive Kubernetes manifests
 #        uses: actions/upload-artifact@v2
