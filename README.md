@@ -1,6 +1,7 @@
-# dummy-api
+# quarkus-preview-env-demo
 
-This project is a dummy-api using Quarkus.
+This project is a minimal Quarkus application.
+It wants to demo how to set up preview environments using ArgoCD.
 
 ## How to build the docker image
 
@@ -17,7 +18,7 @@ docker images
 
 Run the container.
 ```bash
-docker run --rm -p 8080:8080 acaron/dummy-api:1.0.0-SNAPSHOT
+docker run --rm -p 8080:8080 acaron/quarkus-preview-env-demo:1.0.0-SNAPSHOT
 ```
 
 Test the API
