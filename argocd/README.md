@@ -27,7 +27,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 You can use the kubernetes port-forward feature to access ArgoCD:
 ```bash
-kubectl port-forward service/argocd-server 8080:80
+kubectl -n argocd port-forward service/argocd-server 8080:80
 ```
 
 ## Configure the preview environment for our demo application
@@ -39,5 +39,5 @@ The github repository is public, so we don't need to manage any secrets.
 We can configure the ArgoCD ApplicationSet to create a preview environment for each branch.
 
 ```bash
-kubectl apply -f argocd/applicationset.yaml
+kubectl apply -n argocd -f argocd/applicationset.yaml
 ```
