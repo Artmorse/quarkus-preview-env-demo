@@ -32,10 +32,17 @@ https://quarkus.io/guides/deploying-to-kubernetes
 
 Adding this dependency and running `mvn verify` a `kubernetes.yml` file will be generated in the `target/kubernetes` directory.
 
-## How to setup preview environments
+## How to set up preview environments
 
-I've created the [_preview_ directory](/preview) with Helm templates based on the kubernetes ones (generated previously).
-They'll be used by our ArgoCD application to create preview environments.
+I've created Helm chart for our application.
+
+```bash
+helm create preview
+```
+
+The Helm manifests are based on the kubernetes ones previously generated.
+
+The chart will be used by ArgoCD to create preview environments.
 
 ## Configure CI
 
