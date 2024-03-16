@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: quarkus-api
+spec:
+  generators:
+    - pullRequest:
+        github:
+          owner: Artmorse
+          repo: quarkus-preview-env-demo
+#          tokenRef:
+#            key: token
+#            secretName: github-token
+        requeueAfterSeconds: 60
+  template:
+    metadata:
+      name: 'quarkus-demo-app-{{branch}}-{{number}}'
+    spec:
+      destination:
+        namespace: 'preview-{{branch}}'
+        server: 'https://kubernetes.default.svc'
+      project: default
+      source:
+        path: preview/
+        repoURL: 'https://github.com/Artmorse/quarkus-preview-env-demo.git'
+        targetRevision: HEAD
+        helm:
+          parameters:
+            - name: namespace
+              value: 'preview-{{branch}}'
+            - name: version
+              value: '{{head_sha}}'
+            - name: username
+              value: lemorse
+            - name: image
+              value: quarkus-preview-env-demo
+            - name: name
+              value: quarkus-demo-app
+      syncPolicy:
+        automated:
+          selfHeal: true
